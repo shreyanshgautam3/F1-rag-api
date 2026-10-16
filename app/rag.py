@@ -9,10 +9,12 @@ from langchain_core.documents import Document
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langfuse.langchain import CallbackHandler
+from langfuse import get_client
 
 load_dotenv()
 
 langfuse_handler = CallbackHandler()
+langfuse = get_client()
 
 qdrant_client = QdrantClient(
     url=os.getenv("QDRANT_URL"),
@@ -83,13 +85,22 @@ def format_docs(docs: List[Document]) -> str:
 
 def answer_question(question: str, top_k: int = 5) -> dict:
     retriever = QdrantMotorsportsRetriever(top_k=top_k)
-    docs = retriever.invoke(question,
-                            config={"callbacks": [langfuse_handler]})
-    context = format_docs(docs)
-    answer = chain.invoke({"context": context, "question": question},
-                          config={"callbacks": [langfuse_handler]})
-    sources = [
-        {"n": i + 1, "url": d.metadata["source_url"], "doc_type": d.metadata["doc_type"]}
-        for i, d in enumerate(docs)
-    ]
-    return {"answer": answer, "sources": sources}
+
+    with langfuse.start_as_current_observation(
+        name="answer_question",
+        as_type="span",
+        input={"question": question, "top_k": top_k},
+    ) as span:
+        docs = retriever.invoke(question,
+                                config={"callbacks": [langfuse_handler]})
+        context = format_docs(docs)
+        answer = chain.invoke({"context": context, "question": question},
+                              config={"callbacks": [langfuse_handler]})
+        sources = [
+            {"n": i + 1, "url": d.metadata["source_url"], "doc_type": d.metadata["doc_type"]}
+            for i, d in enumerate(docs)
+        ]
+        result = {"answer": answer, "sources": sources}
+
+        span.update(output=result)
+        return result
