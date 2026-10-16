@@ -8,8 +8,11 @@ from langchain_core.retrievers import BaseRetriever
 from langchain_core.documents import Document
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
+from langfuse.langchain import CallbackHandler
 
 load_dotenv()
+
+langfuse_handler = CallbackHandler()
 
 qdrant_client = QdrantClient(
     url=os.getenv("QDRANT_URL"),
@@ -80,9 +83,11 @@ def format_docs(docs: List[Document]) -> str:
 
 def answer_question(question: str, top_k: int = 5) -> dict:
     retriever = QdrantMotorsportsRetriever(top_k=top_k)
-    docs = retriever.invoke(question)
+    docs = retriever.invoke(question,
+                            config={"callbacks": [langfuse_handler]})
     context = format_docs(docs)
-    answer = chain.invoke({"context": context, "question": question})
+    answer = chain.invoke({"context": context, "question": question},
+                          config={"callbacks": [langfuse_handler]})
     sources = [
         {"n": i + 1, "url": d.metadata["source_url"], "doc_type": d.metadata["doc_type"]}
         for i, d in enumerate(docs)
