@@ -2,7 +2,7 @@
 
 A Retrieval-Augmented Generation system that answers natural-language questions about Formula 1 regulations and history, with every answer grounded in cited source material rather than model memory alone.
 
-**Live Demo**: [https://f1-rag-api.onrender.com/docs]
+**Live Demo**: https://f1-rag-api.onrender.com/docs
 
 ## What it does
 
@@ -20,8 +20,27 @@ Ask a question like *"What is the minimum length of the forward piece of the Pla
 - **Embeddings** — Voyage AI
 - **Vector store** — Qdrant Cloud
 - **Retrieval + generation** — a custom LangChain `BaseRetriever` wrapping the Qdrant/Voyage calls, composed via LCEL with `ChatAnthropic` (Claude) and a `StrOutputParser`
+- **Observability** — Langfuse tracing
 - **API** — FastAPI, exposing `/ask` and `/health`
 - **Deployment** — Docker container on Render
+
+## Observability
+
+The question-answering pipeline in `rag.ipynb` is traced with [Langfuse](https://langfuse.com) (Python SDK v3). Each call to `answer_question()` produces one trace:
+
+- a parent span, `answer_question`, with the question and `top_k` as input and the answer plus cited sources as output
+- the retriever call (query and retrieved chunks), attached through the LangChain `CallbackHandler`
+- the prompt and Claude call, attached through the same handler
+
+This makes it possible to tell whether a bad answer came from retrieval (wrong or missing chunks) or from generation (right chunks, wrong answer). Retrieval evaluation run (`evaluate_retrieval`) are not traced.
+
+Set these in `.env` to enable it:
+
+```
+LANGFUSE_PUBLIC_KEY=...
+LANGFUSE_SECRET_KEY=...
+LANGFUSE_BASE_URL=https://cloud.langfuse.com
+```
 
 ## Retrieval evaluation
 
