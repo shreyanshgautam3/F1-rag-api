@@ -20,8 +20,9 @@ qdrant_client = QdrantClient(
     url=os.getenv("QDRANT_URL"),
     api_key=os.getenv("QDRANT_API_KEY"),
 )
+
 voyageai_client = voyageai.Client(api_key=os.getenv("VOYAGEAI_API_KEY"))
-llm = ChatAnthropic(model=os.getenv("ANTHROPIC_MODEL", "claude-haiku-4-5-20251001"), max_tokens=1024)
+llm = ChatAnthropic(model=os.getenv("ANTHROPIC_MODEL", "claude-haiku-5-5"), max_tokens=1024)
 
 collection_name = "motorsports_corpus"
 voyage_model = "voyage-4"
@@ -37,6 +38,7 @@ prompt = ChatPromptTemplate.from_messages([
     ("system", SYSTEM_PROMPT),
     ("human", "Context:\n{context}\nQuestion: {question}"),
 ])
+
 chain = prompt | llm | StrOutputParser()
 
 

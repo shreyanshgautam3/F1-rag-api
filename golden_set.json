@@ -1,0 +1,203 @@
+[
+  {
+    "question": "What is the minimum length of the forward piece of the Plank in the 2027 Technical Regulations?",
+    "expected_sources": [
+      "FIA 2027 F1 Regulations - Section C [Technical] - Iss 2 - 2026-08-05.pdf",
+      "FIA 2027 F1 Regulations - Section C [Technical] - Iss 01 - 2026-06-25.pdf"
+    ],
+    "expected_answer": "Under the Formula 1 2027 Technical Regulations, the minimum length of the forward piece of the Plank is 600mm. This requirement represents a significant deduction from the previous minimum length of 900mm."
+  },
+  {
+    "question": "What were the token system restrictions for chassis upgrades introduced in the 2021 technical rules?",
+    "expected_sources": [
+      "2021_formula_1_technical_regulations_-_iss_10_-_2021-06-28.pdf"
+    ],
+    "expected_answer": "Teams were given a total of two tokens for the modification of certain homologated components after the specified freeze date. This provision applied only to components with R1-2020 and mid-2020 freeze dates. If one or two tokens had been used during the 2020 Championship, those updated components had to continue being used for 2021, and those tokens counted as used for 2021 as well. No further tokens were granted in case any of the teams have completed a completely new Power Unit installation for any other components. The token system was introduced to ease financial pressures on teams caused by the COVID-19 pandemic."
+  },
+  {
+    "question": "In 2022, with the car resting on a horizontal plane, what minimum fractions of the minimum car mass must be measured at the front and rear axles during the qualifying practice session, and to what precision is the result rounded?",
+    "expected_sources": [
+      "fia_2022_formula_1_technical_regulations_-_issue_13_-_2022-08-16.pdf"
+    ],
+    "expected_answer": "The mass measured at the front axle must not be less than the Article 4.1 minimum mass factored by 0.445, and at the rear axle not less than that mass factored by 0.540, at all times during the qualifying practice session. Rounding is to the nearest 0.5 kg."
+  },
+  {
+    "question": "What are the rules regarding the mass distribution of the car in the 2024 technical regulations?",
+    "expected_sources": [
+      "fia_2024_formula_1_technical_regulations_-_issue_8_-_2024-10-17.pdf"
+    ],
+    "expected_answer": "Article 4.2 of the 2024 FIA F1 Technical Regulations requires that, with the car on a horizontal plane, the mass measured at the front and rear axles must be at least the minimum car mass (Article 4.1, 798 kg without fuel) multiplied by 0.446 (front) and 0.539 (rear) respectively, at all times during the qualifying practice session, rounded to the nearest 0.5 kg. The minimum mass and these factors are adjusted for tyre mass differences versus the previous year (Article 4.3). Ballast (Article 4.4) must be secured so tools are needed to remove it, remain immobile relative to the sprung mass, and be sealable by the FIA."
+  },
+  {
+    "question": "What are the limitations on Testing of Current Cars (TCC) in the 2025 FIA Sporting Regulations?",
+    "expected_sources": [
+      "FIA 2025 Formula 1 Sporting Regulations - Issue 5 - 2025-04-30.pdf"
+    ],
+    "expected_answer": "TCC running is limited to a maximum continuous duration of nine hours between 09:00 and 19:00. Only cars that have passed the static and dynamic tests in the Technical Regulations may take part, and they must be fitted with the FIA ECU (Article 8.3). Red flag and end-of-session procedures and fuel handling procedures (Article 36) must be followed. Only Current Cars may run, with limited exceptions. At the FIA's discretion, each competitor may also run two sessions that are not counted as TCC."
+  },
+  {
+    "question": "What is the maximum MGU-K power output allowed under the new 2026 engine regulations?",
+    "expected_sources": [
+      "FIA 2026 F1 Regulations - Section C [Technical] - Iss 20 - 2026-08-05.pdf",
+      "https://en.wikipedia.org/wiki/Formula_One_engines",
+      "https://en.wikipedia.org/wiki/2026_Formula_One_World_Championship"
+    ],
+    "expected_answer": "The MGU-K has been increased to 470hp (350 kW) which represents increase from the previous limit of 160hp (120 kW)."
+  },
+  {
+    "question": "In 2026, what is the Power Unit Cost Cap for a manufacturer in the Full Year Financial Regulations Reporting Period ending on 31 December of its Inaugural Season and in each subsequent period, and how much does it differ from the cap in the N-3, N-2 and N-1 reporting periods?",
+    "expected_sources": [
+      "FIA 2026 F1 Regulations - Section E [Financial – PU Manufacturers] - Iss 06 - 2026-06-25.pdf"
+    ],
+    "expected_answer": "In the Full Year Financial Regulations Reporting Period ending on 31 December in the year of the manufacturer's Inaugural Season, and in subsequent period, the Power Unit Cost Cap is US$190,000,000 adjusted for Indexation (Article E2.3.1.b). In each of the N-3, N-2 and N-1 Full Year Financial Regulations Reporting Periods, the cap is lower at US$148,500,000, also adjusted for Indexation (Article E2.3.1.a)."
+  },
+  {
+    "question": "What are the exact restricted periods and curfew exceptions for team personnel working at the circuit according to the 2025 sporting rules?",
+    "expected_sources": [
+      "FIA 2025 Formula 1 Sporting Regulations - Issue 5 - 2025-04-30.pdf"
+    ],
+    "expected_answer": "The 2025 Sporting Regulations define three restricted periods relative to the scheduled start of P1 and P3. Period One runs from 42 hours to 29 hours before the start of P1. Period Two runs from 18 hours to 4 hours before the start of P1. Period Three applies only at Competitions without a sprint session and runs from 14 hours to 3 hours before the start of P3; if the unrestricted time between the end of P2 and the start of Period Three exceeds 4 hours, the excess is added to the start of Period Three. During restricted periods, personnel must not carry out operational activities such as working on cars or car components. Operational personnel may enter the Paddock 30 minutes before the end of each restricted period, and may remain at the circuit for up to one hour after the start of Restricted Periods One and Two for exercise, meals and socialising."
+  },
+  {
+    "question": "What are the mandatory summer and winter factory shutdown rules for aerodynamic testing facilities in the 2026 operational regulations?",
+    "expected_sources": [
+      "fia_2026_f1_regulations_-_section_f_operational_-_iss_10_-_2026-08-05.pdf"
+    ],
+    "expected_answer": "In the 2026 regulations, F1 Teams must observe two mandatory shutdown periods. The summer shutdown is 14 consecutive calendar days during July and/or August; if two consecutive Competitions in that window are separated by only 17 days, the shutdown is 13 consecutive calendar days instead. The winter shutdown is 9 consecutive calendar days starting on 24 December. During a shutdown, teams (and affiliates or third-party suppliers acting for them) may not operate wind tunnels or computer resources for CFD simulations, except as permitted by Article F3.1.4. They also may not produce or develop wind tunnel parts, car parts, test parts or tooling, or sub-assemble car parts or assemble cars."
+  },
+  {
+    "question": "What were the updated vertical load test specifications and deflection allowances for floor edges introduced across the 2023 technical rule revisions?",
+    "expected_sources": [
+      "fia_2023_formula_1_technical_regulations_-_issue_1_-_2022-06-29.pdf",
+      "fia_2023_formula_1_technical_regulations_-_issue_2_-_2022-08-16.pdf",
+      "fia_2023_formula_1_technical_regulations_-_issue_3_-_2022-10-19.pdf"
+    ],
+    "expected_answer": "The 2023 Technical Regulations limit outboard floor flexibility with a vertical load test: bodywork may deflect no more than 5mm vertically under a 250N load applied downward, and no more than 5mm under a 250N load applied upward. The load is applied simultaneously to the left and right sides of the floor at X-positions XR=-950 or XR=-525 (a variation of ±30mm is permitted at the competitor's discretion). It is applied at the intersection of the X-plane at the loading position and a straight line representing the least-squares average of the plan view of the floor's outer edge, displaced inboard by 10mm, between 100mm ahead of and 100mm behind that plane. Competitors must supply four adaptors (two per side), each 200mm in X, fitted to the outer edges of the floor."
+  },
+  {
+    "question": "What change was made to F1 wheel rim and overall tyre diameter for the 2022 season?",
+    "expected_sources": [
+      "https://en.wikipedia.org/wiki/Formula_One_car"
+    ],
+    "expected_answer": "For the 2022 season, the wheel rim diameter increased from 13 inches to 18 inches (about 330 mm to 460 mm), and the overall tyre diameter increased from 670 mm to 720 mm (about 26 inches to 28 inches)."
+  },
+  {
+    "question": "Which driver lost their Ferrari seat to Lewis Hamilton and subsequently agreed to a multi-year deal with Williams Racing?",
+    "expected_sources": [
+      "https://en.wikipedia.org/wiki/Carlos_Sainz",
+      "https://en.wikipedia.org/wiki/Lewis_Hamilton",
+      "https://en.wikipedia.org/wiki/Williams_Racing",
+      "https://en.wikipedia.org/wiki/2025_Formula_One_World_Championship"
+    ],
+    "expected_answer": "Carlos Sainz Jr. After four seasons at Ferrari, he was replaced by Lewis Hamilton, who left Mercedes after twelve seasons. Sainz then joined Williams Racing on a multi-year deal."
+  },
+  {
+    "question": "How do the 2026 engine rules balance power output following the total removal of the Motor Generator Unit - Heat (MGU-H)?",
+    "expected_sources": [
+      "FIA 2026 F1 Regulations - Section C [Technical] - Iss 20 - 2026-08-05.pdf",
+      "https://en.wikipedia.org/wiki/Formula_One_engines"
+    ],
+    "expected_answer": "With the MGU-H removed, the 2026 power units balance power through a much larger MGU-K and a smaller combustion engine. MGU-K output rises to about 350 kW (470 bhp), up from 120 kW (160 bhp). Internal combustion engine output falls to about 400 kW (540 bhp), down from 630 kW (850 bhp). Total output stays above 1,000 bhp (750 kW), giving roughly a 50-50 split between combustion and electrical power. Fuel flow is now limited by energy rather than mass, and the power units run on fully sustainable fuel."
+  },
+  {
+  "question": "Which circuit on the current calendar is described as the fastest, and for roughly how much of the lap are engines at full throttle there?",
+    "expected_sources": [
+      "https://en.wikipedia.org/wiki/Autodromo_Nazionale_Monza"
+    ],
+    "expected_answer": "Monza is described as the fastest track on the Formula One calendar, with engines at full throttle for nearly 80% of the lap."
+  },
+  {
+    "question": "In 2026, what is the minimum requirement for any Race points to be awarded, and how many points does the winner receive if the leader completes (a) two laps but less than 25% of the Scheduled Race Distance, (b) 25% to under 50%, (c) 50% to under 75%, and (d) 75% or more?",
+    "expected_sources": [
+      "FIA 2026 F1 Regulations - Section A [General Provisions] - Iss 03 - 2026-06-25.pdf"
+    ],
+    "expected_answer": "No points are awarded unless the leader has completed at least two complete and consecutive laps without a Safety Car or Virtual Safety Car procedure. The winner (1st place) then receives: (a) 6 points if the leader has completed two laps but less than 25% of the Scheduled Race Distance; (b) 13 points for 25% to under 50%; (c) 19 points for 50% to under 75%; (d) 25 points for 75% or more."
+  },
+  {
+    "question": "In 2026, what are the Pirelli front and rear slick tyre sizes, and how do they compare with the sizes used from 2022 to 2025?",
+    "expected_sources": [
+      "https://en.wikipedia.org/wiki/Formula_One_tyres"
+    ],
+    "expected_answer": "For 2026, the Pirelli control slick tyres are 280/705 R18 at the front and 375/710 R18 at the rear. These are marginally smaller than the 305/720 R18 front and 405/720 R18 rear sizes used from 2022 to 2025. The smaller sizes were introduced under the 2026 Formula 1 Technical Regulations to reduce aerodynamic drag."
+  },
+  {
+    "question": "What circuit hosts the Belgian Grand Prix?",
+    "expected_sources": [
+      "https://en.wikipedia.org/wiki/Circuit_de_Spa-Francorchamps"
+    ],
+    "expected_answer": "Ciruit de Spa-Francorchamps hosts the Belgian Grand Prix."
+  },
+  {
+    "question": "What is the Drag Reduction System (DRS) and when can drivers use it?",
+    "expected_sources": [
+      "https://en.wikipedia.org/wiki/Drag_reduction_system"
+    ],
+    "expected_answer": "The Drag Reduction System (DRS) was driver-adjustable bodywork that opened a flap on the rear wing (up to 85 mm from the fixed main plane) to reduce drag and downforce, increasing top speed and helping a pursuing car overtake. Drivers could use it only in FIA-designated DRS zones, and only if they were within one second of the car ahead at the detection point. It could not be used on the first racing lap after the start or a safety car restart (from 2024 it became available after one lap instead of two), and it was not allowed when conditions were deemed dangerous, such as rain. DRS was used from 2011 to 2025 and was replaced by an active aerodynamics system under the 2026 regulations."
+  },
+  {
+    "question": "When did Cadillac join the Formula One grid?",
+    "expected_sources": [
+      "https://en.wikipedia.org/wiki/Cadillac_in_Formula_One"
+    ],
+    "expected_answer": "Cadillac joined the Formula One grid in the 2026 season."
+  },
+  {
+    "question": "What circuit hosts the Singapore Grand Prix?",
+    "expected_sources": [
+      "https://en.wikipedia.org/wiki/Marina_Bay_Street_Circuit"
+    ],
+    "expected_answer": "The Marina Bay Street Circuit (also known as the Singapore Street Circuit) hosts the Singapore Grand Prix."
+  },
+  {
+    "question": "How many races made up the 2020 Formula One World Championship calendar?",
+    "expected_sources": [
+      "https://en.wikipedia.org/wiki/2020_Formula_One_World_Championship"
+    ],
+    "expected_answer": "The 2020 Formula One World Championship calendar had 17 races. 22 Grands Prix were originally scheduled, but the COVID-19 pandemic led to a rescheduled calendar: nine of the original races were held, along with eight other Grands Prix added in their place, and 13 of the original races were cancelled."
+  },
+  {
+    "question": "Who won the 2023 Formula One Drivers' Championship?",
+    "expected_sources": [
+      "https://en.wikipedia.org/wiki/2023_Formula_One_World_Championship"
+    ],
+    "expected_answer": "Max Verstappen won the 2023 Formula One Drivers' Championship, his third consecutive title. He clinched it at the Qatar Grand Prix weekend, won a record 19 of the 22 Grands Prix and finished on the podium 21 times."
+  },
+  {
+    "question": "Which team won the Constructors' Championship in the 2021 season?",
+    "expected_sources": [
+      "https://en.wikipedia.org/wiki/2021_Formula_One_World_Championship"
+    ],
+    "expected_answer": "Mercedes won the Constructors Championship in 2021 season."
+  },
+  {
+    "question": "What major regulation changes affected the 2022 Formula One season?",
+    "expected_sources": [
+      "https://en.wikipedia.org/wiki/2022_Formula_One_World_Championship",
+      "https://en.wikipedia.org/wiki/Ground_effect_(aerodynamics)"
+    ],
+    "expected_answer": "The 2022 season brought an overhaul of the technical regulations, the biggest in decades. The main change was the return of ground-effect aerodynamics, with the floor generating much of the downforce, for the first time since 1982. Other aerodynamic changes included the elimination of bargeboards, a simplified front wing with simpler endplates attached directly to the nosecone, wider rear wings mounted higher, and limits on using exhaust gases to increase downforce. The rules were designed to reduce the effect of dirty air and promote closer racing. Fuel moved to E10, raising the bio-component from 5.75% to 10%. The number of aerodynamic upgrades teams could make was reduced to cut costs."
+  },
+  {
+    "question": "How does ground effect aerodynamics generate downforce on a Formula One car?",
+    "expected_sources": [
+      "https://en.wikipedia.org/wiki/Ground_effect_(aerodynamics)",
+      "https://en.wikipedia.org/wiki/Formula_One_car"
+    ],
+    "expected_answer": "Ground effect generates downforce through the airflow under the car's floor. Air flowing beneath the floor helps seal the gap to the ground and creates a low-pressure area that effectively sucks the car towards the track, increasing downforce and grip. Under the 2022 regulations the underside of the car again became the primary source of aerodynamic grip, using venturi tunnels for the first time since they were banned in 1983."
+  },
+  {
+    "question": "What compounds do Formula One tyres come in?",
+    "expected_sources": [
+      "https://en.wikipedia.org/wiki/Formula_One_tyres"
+    ],
+    "expected_answer": "Formula One tyres come in seven compounds. Five are dry-weather slicks, C1 (hardest, least grip, most durable) through C5 (softest, most grip, least durable), which form a continuous progression of grip versus wear. Two are wet-weather tyres: the Intermediate (green sidewall) for damp tracks and the Full Wet (blue sidewall) for heavy standing water. For each race Pirelli nominates three of the five slick compounds and labels them Hard (white), Medium (yellow) and Soft (red). Drivers must use at least two different dry compounds in a race unless it is affected by wet weather."
+  },
+  {
+    "question": "What kind of power units do current Formula One cars use?",
+    "expected_sources": [
+      "https://en.wikipedia.org/wiki/Formula_One_engines",
+      "https://en.wikipedia.org/wiki/Formula_One_car"
+    ],
+    "expected_answer": "Current (2026) Formula One cars use hybrid power units made up of a turbocharged 1.6-litre V6 internal combustion engine combined with an electric hybrid system. Total output is over 1,000 bhp (750 kW), with roughly 400 kW (540 bhp) from the combustion engine and 350 kW (470 bhp) from the MGU-K, an approximately 50-50 split. The MGU-H has been removed, and the cars run on fully sustainable fuel. The previous generation (2014-2025) also used a 1.6-litre turbo V6 hybrid, but with a smaller electrical contribution and the MGU-H."
+  }
+]

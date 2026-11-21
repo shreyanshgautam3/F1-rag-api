@@ -6,7 +6,7 @@ A Retrieval-Augmented Generation system that answers natural-language questions 
 
 ## What it does
 
-Ask a question like *"What is the minimum length of the forward piece of the Plank in the 2027 Technical Regulations?"* and get back an answer with numbered, traceable citations — not just a confident-sounding guess.
+Ask a question like *"What is the minimum length of the forward piece of the Plank in the 2027 Technical Regulations?"* and get back an answer with numbered, traceable citations - not just a confident-sounding guess.
 
 ## Corpus
 
