@@ -1,7 +1,7 @@
-import json
+import json, sys
 from app.rag import QdrantMotorsportsRetriever, chain, format_docs
 
-K = 5
+K = int(sys.argv[1]) if len(sys.argv) > 1 else 5
 
 with open("golden_set.json", encoding="utf-8") as f:
     golden = json.load(f)
@@ -25,6 +25,7 @@ for item in golden:
         "question": item["question"],
         "expected_answer": item["expected_answer"],
         "answer": answer,
+        "sources": [d.metadata["source_url"] for d in docs],
         "contexts": [d.page_content for d in docs],
         "rank": rank
     })
@@ -40,4 +41,7 @@ for r in results:
         print("MISS:", r["question"])
 
 with open("results.json", "w", encoding="utf-8") as f:
+    json.dump(results, f, indent=2)
+
+with open(f"results_k{K}.json", "w", encoding="utf-8") as f:
     json.dump(results, f, indent=2)

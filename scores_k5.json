@@ -1,0 +1,137 @@
+[
+  {
+    "question": "What is the minimum length of the forward piece of the Plank in the 2027 Technical Regulations?",
+    "faithfulness": 0.8,
+    "correctness": 0.9
+  },
+  {
+    "question": "What were the token system restrictions for chassis upgrades introduced in the 2021 technical rules?",
+    "faithfulness": 1.0,
+    "correctness": 0.7
+  },
+  {
+    "question": "In 2022, with the car resting on a horizontal plane, what minimum fractions of the minimum car mass must be measured at the front and rear axles during the qualifying practice session, and to what precision is the result rounded?",
+    "faithfulness": 1.0,
+    "correctness": 1.0
+  },
+  {
+    "question": "What are the rules regarding the mass distribution of the car in the 2024 technical regulations?",
+    "faithfulness": 1.0,
+    "correctness": 0.5
+  },
+  {
+    "question": "What are the limitations on Testing of Current Cars (TCC) in the 2025 FIA Sporting Regulations?",
+    "faithfulness": 1.0,
+    "correctness": 0.3
+  },
+  {
+    "question": "What is the maximum MGU-K power output allowed under the new 2026 engine regulations?",
+    "faithfulness": 0.8,
+    "correctness": 1.0
+  },
+  {
+    "question": "In 2026, what is the Power Unit Cost Cap for a manufacturer in the Full Year Financial Regulations Reporting Period ending on 31 December of its Inaugural Season and in each subsequent period, and how much does it differ from the cap in the N-3, N-2 and N-1 reporting periods?",
+    "faithfulness": 1.0,
+    "correctness": 0.9
+  },
+  {
+    "question": "What are the exact restricted periods and curfew exceptions for team personnel working at the circuit according to the 2025 sporting rules?",
+    "faithfulness": 1.0,
+    "correctness": 0.7
+  },
+  {
+    "question": "What are the mandatory summer and winter factory shutdown rules for aerodynamic testing facilities in the 2026 operational regulations?",
+    "faithfulness": 0.875,
+    "correctness": 0.5
+  },
+  {
+    "question": "What were the updated vertical load test specifications and deflection allowances for floor edges introduced across the 2023 technical rule revisions?",
+    "faithfulness": 0.6,
+    "correctness": 0.1
+  },
+  {
+    "question": "What change was made to F1 wheel rim and overall tyre diameter for the 2022 season?",
+    "faithfulness": 0.8571428571428571,
+    "correctness": 0.9
+  },
+  {
+    "question": "Which driver lost their Ferrari seat to Lewis Hamilton and subsequently agreed to a multi-year deal with Williams Racing?",
+    "faithfulness": 1.0,
+    "correctness": 0.9
+  },
+  {
+    "question": "How do the 2026 engine rules balance power output following the total removal of the Motor Generator Unit - Heat (MGU-H)?",
+    "faithfulness": 1.0,
+    "correctness": 0.8
+  },
+  {
+    "question": "Which circuit on the current calendar is described as the fastest, and for roughly how much of the lap are engines at full throttle there?",
+    "faithfulness": 1.0,
+    "correctness": 1.0
+  },
+  {
+    "question": "In 2026, what is the minimum requirement for any Race points to be awarded, and how many points does the winner receive if the leader completes (a) two laps but less than 25% of the Scheduled Race Distance, (b) 25% to under 50%, (c) 50% to under 75%, and (d) 75% or more?",
+    "faithfulness": 1.0,
+    "correctness": 1.0
+  },
+  {
+    "question": "In 2026, what are the Pirelli front and rear slick tyre sizes, and how do they compare with the sizes used from 2022 to 2025?",
+    "faithfulness": 1.0,
+    "correctness": 0.9
+  },
+  {
+    "question": "What circuit hosts the Belgian Grand Prix?",
+    "faithfulness": 1.0,
+    "correctness": 1.0
+  },
+  {
+    "question": "What is the Drag Reduction System (DRS) and when can drivers use it?",
+    "faithfulness": 0.9411764705882353,
+    "correctness": 0.9
+  },
+  {
+    "question": "When did Cadillac join the Formula One grid?",
+    "faithfulness": 1.0,
+    "correctness": 1.0
+  },
+  {
+    "question": "What circuit hosts the Singapore Grand Prix?",
+    "faithfulness": 1.0,
+    "correctness": 1.0
+  },
+  {
+    "question": "How many races made up the 2020 Formula One World Championship calendar?",
+    "faithfulness": 1.0,
+    "correctness": 0.9
+  },
+  {
+    "question": "Who won the 2023 Formula One Drivers' Championship?",
+    "faithfulness": 0.8888888888888888,
+    "correctness": 0.6
+  },
+  {
+    "question": "Which team won the Constructors' Championship in the 2021 season?",
+    "faithfulness": 1.0,
+    "correctness": 1.0
+  },
+  {
+    "question": "What major regulation changes affected the 2022 Formula One season?",
+    "faithfulness": 1.0,
+    "correctness": 0.9
+  },
+  {
+    "question": "How does ground effect aerodynamics generate downforce on a Formula One car?",
+    "faithfulness": 1.0,
+    "correctness": 0.8
+  },
+  {
+    "question": "What compounds do Formula One tyres come in?",
+    "faithfulness": 1.0,
+    "correctness": 0.9
+  },
+  {
+    "question": "What kind of power units do current Formula One cars use?",
+    "faithfulness": 1.0,
+    "correctness": 0.7
+  }
+]

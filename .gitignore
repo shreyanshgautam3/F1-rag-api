@@ -6,6 +6,7 @@ dist/
 wheels/
 *.egg-info
 docker-compose.yml
+.deepeval
 
 # Virtual environments
 .venv
