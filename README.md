@@ -22,6 +22,7 @@ Ask a question like *"What is the minimum length of the forward piece of the Pla
 - **Vector store** — Qdrant Cloud
 - **Retrieval + generation** — a custom LangChain `BaseRetriever` wrapping the Qdrant/Voyage calls, composed via LCEL with `ChatAnthropic` (Claude) and a `StrOutputParser`
 - **Observability** — Langfuse tracing
+- **Evaluation** — golden-set retrieval metrics, DeepEval generation metrics, GitHub Actions retrieval check
 - **API** — FastAPI, exposing `/ask` and `/health`
 - **Deployment** — Docker container on Render
 
@@ -61,7 +62,7 @@ uv run python eval.py 5                     # retrieval + answers, writes result
 uv run python judge.py results_k5.json      # DeepEval scores, writes scores_k5.json
 ```
 
-`eval.py` takes the top-k as an argument (default 5). For each question it retrieves the top-k chunks, generates an answer from those same chunks, and saves the question, expected answer, generated answer, retrieved contexts and rank of the first correct source. It prints Hit Rate and MRR and lists any questions whose expected source was not retrieved. `judge.py` scores the saved answers; an empty answer is scored 0.
+`eval.py` takes the top-k as an argument (default 5). For each question it retrieves the top-k chunks, generates an answer from those same chunks, and saves the question, expected answer, generated answer, retrieved contexts, source URLs and rank of the first correct source. It prints Hit Rate and MRR and lists any questions whose expected source was not retrieved. Adding `--retrieval-only` skips answer generation, writes no results file, and exits with an error if Hit Rate falls below 0.96 (this is what CI runs). `judge.py` scores the saved answers; an empty answer is scored 0.
 
 ### Retrieval results
 
@@ -80,7 +81,7 @@ The production API defaults to `top_k=5`, where every question in the golden set
 
 ### Generation results (DeepEval)
 
-Judge: Claude Sonnet 4.6, a different model from the generator (`claude-haiku-5-5`). Metrics: **Faithfulness** (is the answer supported by the retrieved context?) and **Correctness** (does the answer match the hand-written expected answer, via G-Eval?). One run per setting.
+Judge: Claude Sonnet 4.6 via DeepEval (≥ 4.3.5), a different model from the generator (`claude-haiku-5-5`). Metrics: **Faithfulness** (is the answer supported by the retrieved context?) and **Correctness** (does the answer match the hand-written expected answer, via G-Eval?). One run per setting.
 
 | top-k | Faithfulness | Correctness |
 | ----- | ------------ | ----------- |
@@ -101,11 +102,36 @@ Single runs: score differences under about 0.03 should be treated as noise. Corr
 
 Answers are generated with the model set in the `ANTHROPIC_MODEL` environment variable (default `claude-haiku-5-5`).
 
+### Continuous integration
+
+![Eval](https://github.com/shreyanshgautam3/F1-rag-api/actions/workflows/eval.yml/badge.svg)
+
+A GitHub Actions workflow (`.github/workflows/eval.yml`) runs on pushes that touch `app/`, `eval.py`, `golden_set.json` or the dependency files:
+
+- **Retrieval check (automatic):** runs the golden set at k=5 with no LLM calls and fails the build if Hit Rate drops below 0.96 (one miss out of 27 allowed). MRR is not gated because it varies by about ±0.012 between runs.
+- **Generation + judge (manual only):** "Run workflow" with `run_judge` ticked generates answers and scores them with DeepEval. It is manual because it uses Anthropic credits.
+
+Repository secrets: `QDRANT_URL`, `QDRANT_API_KEY`, `VOYAGEAI_API_KEY`, and `ANTHROPIC_API_KEY` (manual judge job only).
+
 ## Known limitations
 
 Some of the regulation PDFs use FIA's redline/revision-tracking convention (9 out of 16 of them), which causes some numeric values to appear duplicated in extracted text for recently-changed passages. Answers touching those passages should be treated as lower-confidence. The 2023 floor-edge load test question is anchored to redlined text and is answered incorrectly.
 
 The corpus also contains several issues of the same regulations. Four golden-set questions miss at k=1 (all are recovered by k=3). They concern topics covered by multiple near-duplicate documents, such as several issues of the same regulation, so a sibling document can rank first.
+
+## Threat model
+
+Scope: a public, read-only RAG endpoint over a public corpus (FIA regulations and Wikipedia). The LLM has no tools and takes no actions, the endpoint has no authentication, and no secrets or private data are in the model's context. Risks are mapped to the OWASP Top 10 for LLM Applications (2025).
+
+| Risk | How it applies here | In place | Not done |
+| --- | --- | --- | --- |
+| LLM01 Prompt injection | A user question can try to override instructions. Retrieved text from scraped sources can also contain instructions (indirect injection). | The system prompt restricts answers to the provided context. Questions are limited to 3-500 characters. The LLM has no tools, so the worst outcome is a bad answer, not an action. | Retrieved context is not delimited or labeled as untrusted data. No input/output filtering. Not yet scanned (Promptfoo scan planned). |
+| LLM04 / LLM08 Poisoning and retrieval weaknesses | Wikipedia is editable, and sibling regulation issues and adjacent seasons compete in retrieval. Evaluation found 2022 figures leaking into a 2023 answer. | Retrieval is measured against a golden set (Hit Rate, MRR) and checked in CI. | No filtering by season or document issue, no reranking, no pinning of Wikipedia revisions. |
+| LLM09 Misinformation | Evaluation showed a wrong 2023 answer (mixed-in 2022 points) and a redline-artifact error on a floor-test question. | Answers cite numbered sources returned in the response. The prompt requires saying so when the context lacks the answer. Faithfulness and correctness are tracked with DeepEval. | Known failures are documented, not fixed. |
+| LLM10 Unbounded consumption | Each call costs a Voyage embedding and a Claude call. | Per-request bounds: `top_k` limited to 1-20, question limited to 500 characters, answer limited to 1024 tokens. | No authentication or per-client rate limiting in the application. |
+| LLM02 Sensitive information disclosure | Error text could expose internals; questions are stored in tracing. | Responses contain only the answer and source URLs, never raw chunks. Errors return a generic message and are logged server-side. Secrets are environment variables. | Questions and answers are logged in Langfuse, so private data should not be submitted. |
+| LLM06 Excessive agency | Not applicable: the pipeline is read-only retrieval plus text generation, with no tools. | n/a | n/a |
+| LLM07 System prompt leakage | Low risk: the system prompt contains no secrets and the repository is public. | n/a | n/a |
 
 ## API
 
@@ -129,7 +155,9 @@ Response:
 }
 ```
 
-**`GET /health`** — returns `{"status": "ok"}` when the Qdrant collection is reachable.
+Input limits: `question` must be 3-500 characters and `top_k` must be 1-20; requests outside these bounds are rejected with 422 before any model call. Unexpected failures return 500 with `{"detail": "Internal error"}`, and the full error is logged server-side only.
+
+**`GET /health`** — returns `{"status": "ok"}` when the Qdrant collection is reachable, otherwise 503.
 
 ## Running locally
 
@@ -160,4 +188,4 @@ docker run -p 8080:8080 --env-file .env f1-rag-api
 
 ## Tech stack
 
-Python · FastAPI · LangChain · Anthropic Claude · Voyage AI · Qdrant · DeepEval (evaluation only) · Docker · uv
+Python · FastAPI · LangChain · Anthropic Claude · Voyage AI · Qdrant · Langfuse · DeepEval (evaluation only) · GitHub Actions · Docker · uv

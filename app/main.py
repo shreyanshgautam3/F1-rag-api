@@ -1,7 +1,10 @@
+import logging
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException
 from app.schemas import QuestionRequest, AnswerResponse
 from app import rag
+
+logger = logging.getLogger(__name__)
 
 
 @asynccontextmanager
@@ -26,16 +29,18 @@ def health():
     try:
         rag.qdrant_client.get_collection(rag.collection_name)
         return {"status": "ok"}
-    except Exception as e:
-        raise HTTPException(status_code=503, detail=f"Qdrant unreachable: {e}")
+    except Exception:
+        logger.exception("health check failed")
+        raise HTTPException(status_code=503, detail="Qdrant unreachable")
 
 
 @app.post("/ask", response_model=AnswerResponse)
 def ask(request: QuestionRequest):
     try:
         return rag.answer_question(request.question, top_k=request.top_k)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    except Exception:
+        logger.exception("ask failed")
+        raise HTTPException(status_code=500, detail="Internal error")
 
 @app.get("/")
 def root():
