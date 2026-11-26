@@ -1,0 +1,49 @@
+name: Eval
+
+on:
+  push:
+    brances: [main]
+    paths:
+      - "app/**"
+      - "eval.py"
+      - "golden_set.json"
+      - "pyproject.toml"
+      - "uv.lock"
+      - ".github/workflows/eval.yml"
+
+  workflow_dispatch:
+    inputs:
+      run_judge:
+        description: "Also generate answers and run the DeepEval judge"
+        type: boolean
+        default: false
+
+jobs:
+  retrieval:
+    runs-on: ubuntu-latest
+    env:
+      QDRANT_URL: ${{ secrets.QDRANT_URL }}
+      QDRANT_API_KEY: ${{ secrets.QDRANT_API_KEY }}
+      VOYAGEAI_API_KEY: ${{ secrets.VOYAGEAI_API_KEY }}
+      ANTHROPIC_API_KEY: ${{ ANTHROPIC_API_KEY }}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: astral-sh/setup-uv@10.3.3
+      - run: uv sync --locked --extra api
+      - run: uv run python eval.py 5 --retrieval-only
+
+  judge:
+    if: github.event_name == 'workflow_dispatch' && inputs.run_judge
+    runs-on: ubuntu-latest
+    env:
+      QDRANT_URL: ${{ secrets.QDRANT_URL }}
+      QDRANT_API_KEY: ${{ secrets.QDRANT_API_KEY }}
+      VOYAGEAI_API_KEY: ${{ secrets.VOYAGEAI_API_KEY }}
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: astral-sh/setup-uv@v10.3.3
+      - run: uv sync --locked --extra api
+      - run: uv pip install -r requirements-eval.txt
+      - run: uv run --no-sync python eval.py 5
+      - run: uv run --no-sync python judge.py results_k5.json
