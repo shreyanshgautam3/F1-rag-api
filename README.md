@@ -17,7 +17,7 @@ Ask a question like *"What is the minimum length of the forward piece of the Pla
 
 ## Architecture
 
-- **Chunking** — header-aware splitting for regulation PDFs, recursive character splitting for Wikipedia text (`langchain-text-splitters`)
+- **Chunking** — Wikipedia articles are split on their headers, then into 500-token chunks (80 overlap) for longer sections; regulation PDFs have repeated headers/footers stripped, then are split into 280-token chunks (40 overlap) (`langchain-text-splitters`, `tiktoken`)
 - **Embeddings** — Voyage AI
 - **Vector store** — Qdrant Cloud
 - **Retrieval + generation** — a custom LangChain `BaseRetriever` wrapping the Qdrant/Voyage calls, composed via LCEL with `ChatAnthropic` (Claude) and a `StrOutputParser`
@@ -113,6 +113,37 @@ A GitHub Actions workflow (`.github/workflows/eval.yml`) runs on pushes that tou
 
 Repository secrets: `QDRANT_URL`, `QDRANT_API_KEY`, `VOYAGEAI_API_KEY`, and `ANTHROPIC_API_KEY` (manual judge job only).
 
+## Technical decisions
+
+| Decision | Choice | Why | Trade-off |
+| --- | --- | --- | --- |
+| Chunking | Wikipedia: header split, then 500 tokens (80 overlap) for sections over 80 tokens. PDFs: boilerplate stripped, 280 tokens (40 overlap). 8,219 chunks total. | Wikipedia articles carry their own structure, so keeping sections whole preserves meaning. Extracted PDFs have no markup, and short chunks suit precise rule lookups. | Multi-part regulation articles span several chunks. Evaluation showed the Testing of Current Cars answer missing parts of its article at top-5. Token length uses the `cl100k_base` tokenizer as an approximation, not Voyage's own. |
+| Embeddings | Voyage `voyage-4`, 1024 dimensions, cosine distance, `document` vs `query` input types | Retrieval-tuned embeddings, with the asymmetric query/document modes. And recommended by Anthropic. | A hosted API call per query. |
+| Vector store | Qdrant Cloud, with `text`, `source_url`, `section` and `doc_type` in the payload and deterministic point IDs (hash of source + chunk index) | A managed service, so there is no database to run on Render. Stable IDs make re-ingestion upsert the same points. | A network hop on every query. The notebook ingestion step deletes and rebuilds the whole collection. |
+| Retriever | A small custom LangChain `BaseRetriever` | Embedding, filtering and payload mapping stay explicit, and retrieval can be measured separately from generation, which `eval.py` relies on. | More code than a framework default. |
+| Generation | Claude Haiku (`claude-haiku-5-5`, `max_tokens=1024`); the system prompt restricts answers to the context, requires `[n]` citations, and says to admit missing context | Cheap enough for an open endpoint. | A small model sometimes over-trusts mixed context (the 2022/2023 failure). |
+| Default `top_k` | 5, with the API accepting 1-20 | Hit Rate is already 1.000 at k=3, and k=5 adds margin. The K=10 experiment is in the table below. | More chunks mean more tokens, and potentially more pollution from sibling documents. |
+| Error handling | Pydantic bounds on input (422 before any model call), generic 500 and 503 messages, server-side logging, a startup check that the Qdrant collection is reachable | No internals leak to callers, and bad input never costs an LLM call. | Debugging requires reading server logs. |
+| Evaluation | Hand-written golden set, retrieval metrics gated in CI, DeepEval judged manually with a judge model different from the generator | Retrieval metrics are almost free, so they run on every push. The judge costs credits, so it is manual. | Single runs per setting, so results are directional. |
+
+### Experiment: top-k 5 vs 10
+
+| top-k | Hit Rate | MRR | Faithfulness | Correctness |
+| --- | --- | --- | --- | --- |
+| 5 | 1.000 | ≈0.92 | 0.954 | 0.807 |
+| 10 | 1.000 | ≈0.91 | pending | pending |
+
+K = 10 generation scores are pending (see "Generation results" above); this comparison will be completed once they are available.
+
+### What I would change next
+
+- Split regulation PDFs by Article instead of fixed token windows, so multi-clause rules stay together.
+- Store season and issue as metadata so queries can filter by year and avoid cross-season pollution.
+- Add a reranker over the top-10 candidates.
+- Detect and collapse redline text during PDF extraction.
+- Pin Wikipedia revisions when scraping.
+- Run each evaluation setting several times and report the mean.
+
 ## Known limitations
 
 Some of the regulation PDFs use FIA's redline/revision-tracking convention (9 out of 16 of them), which causes some numeric values to appear duplicated in extracted text for recently-changed passages. Answers touching those passages should be treated as lower-confidence. The 2023 floor-edge load test question is anchored to redlined text and is answered incorrectly.
@@ -137,7 +168,7 @@ Scope: a public, read-only RAG endpoint over a public corpus (FIA regulations an
 
 **`POST /ask`**
 
-```
+```json
 {
   "question": "Where is Silverstone located?",
   "top_k": 5
@@ -146,7 +177,7 @@ Scope: a public, read-only RAG endpoint over a public corpus (FIA regulations an
 
 Response:
 
-```
+```json
 {
   "answer": "...",
   "sources": [
